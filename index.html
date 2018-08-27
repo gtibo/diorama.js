@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/master.css">
+  </head>
+  <body>
+    <script src="lib/utility.js"></script>
+    <script src="lib/diorama.js"></script>
+    <!-- Parameters -->
+    <script src="init.js"></script>
+    <!-- Modules -->
+    <script src="modules/gameobjects.js"></script>
+    <!-- Scenes -->
+    <script src="scenes/demo_scene.js"></script>
+    <script type="text/javascript">
+    let game = new Diorama(parameters);
+    // Add the different scenes here
+    // the addScene function link the scene with the world (game)
+    game.addScene(demo);
+    game.ready();
+    game.fullScreen();
+    // everything start being loaded now !
+    // the ready function must be called last !
+    </script>
+  </body>
+</html>
