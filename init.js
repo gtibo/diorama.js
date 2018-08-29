@@ -2,38 +2,38 @@ let parameters = {
 	name: "Title",
 	start_screen: "demo",
 	background_color: "white",
-	width: 128,
+	width: 160,
 	height: 128,
 	assets: [
 		// Images
     {
 			type: "img",
 			name: "origami_font",
-			path: "assets/origami_font.png"
+			path: "assets/fonts/origami.png"
 		},{
 			type: "img",
 			name: "nano_font",
-			path: "assets/nano_font.png"
+			path: "assets/fonts/nano.png"
 		}, {
 			type: "img",
 			name: "box_texture",
-			path: "assets/box.png"
+			path: "assets/ui/box.png"
 		}, {
 			type: "img",
 			name: "bonhomme",
-			path: "assets/bonhomme.png"
+			path: "assets/sprites/bonhomme.png"
 		}, {
 			type: "img",
 			name: "guy",
-			path: "assets/guy.png"
+			path: "assets/sprites/guy.png"
 		}, {
 			type: "img",
 			name: "cursor",
-			path: "assets/cursor.png"
+			path: "assets/ui/cursor.png"
 		}, {
 			type: "img",
 			name: "demo_tileset",
-			path: "assets/demo_tileset.png"
+			path: "assets/tilesets/demo_tileset.png"
 		},
 		// Audio
 		{
@@ -67,7 +67,9 @@ let parameters = {
 
 	tiles:[
 		{name:"empty",id:0,collision:false,visibility:false},
-		{name:"walls",id:3,collision:false,look:"bitmask",line:1},
+		{name:"water",id:1,collision:false},
+		{name:"grass",id:2,collision:false,look:"bitmask",line:1},
+		{name:"walls",id:3,collision:false,look:"bitmask",line:2},
 
 	],
 
@@ -90,6 +92,7 @@ let parameters = {
 						[2, 2, 2],
 						[2, 2, 2],
 						[2, 2, 2],
+						[0, 0, 0],
 					],
 				},
 				{
@@ -99,9 +102,10 @@ let parameters = {
 						y: -4
 					},
 					geometry: [
+						[0, 3, 0],
+						[1, 3, 0],
+						[0, 3, 3],
 						[0, 0, 0],
-						[0, 0, 0],
-						[0, 0, 3],
 					],
 				},
 			],
