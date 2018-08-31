@@ -2,8 +2,9 @@ let parameters = {
 	name: "Title",
 	start_screen: "demo",
 	background_color: "white",
-	width: 160,
+	width: 128,
 	height: 128,
+	scale:2,
 	assets: [
 		// Images
     {
