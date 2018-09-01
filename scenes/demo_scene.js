@@ -17,5 +17,5 @@ demo.render = function() {
   this.world.setFont("origami");
   this.world.write("Welcome",this.world.W/2,10,"center");
   this.world.setFont("nano");
-  this.world.write("Diorama is now running :)",this.world.W/2,30,"center");
+  this.world.write("everything's ready !",this.world.W/2,30,"center");
 };
