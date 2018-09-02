@@ -25,10 +25,6 @@ let parameters = {
 			path: "assets/sprites/bonhomme.png"
 		}, {
 			type: "img",
-			name: "guy",
-			path: "assets/sprites/guy.png"
-		}, {
-			type: "img",
 			name: "cursor",
 			path: "assets/ui/cursor.png"
 		}, {
