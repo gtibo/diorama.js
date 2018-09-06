@@ -1,5 +1,4 @@
 let parameters = {
-	name: "Title",
 	start_screen: "demo",
 	background_color: "white",
 	width: 128,
@@ -23,22 +22,7 @@ let parameters = {
 			type: "img",
 			name: "bonhomme",
 			path: "assets/sprites/bonhomme.png"
-		}, {
-			type: "img",
-			name: "cursor",
-			path: "assets/ui/cursor.png"
-		}, {
-			type: "img",
-			name: "demo_tileset",
-			path: "assets/tilesets/demo_tileset.png"
 		},
-		// Audio
-		{
-			type: "audio",
-			name: "jingle",
-			path: "assets/jingle.wav"
-		},
-		// Bitmap font
 	],
 	fonts: [
 		// basic font
@@ -53,59 +37,5 @@ let parameters = {
 			size: {x: 4,y: 6}
 		},
 	],
-	// box system
-	boxes: [
-		{
-			name: "blue_box",
-			resolution: 8,
-			image: "box_texture",
-		}
-	],
 
-	tiles:[
-		{name:"empty",id:0,collision:false,visibility:false},
-		{name:"water",id:1,collision:false},
-		{name:"grass",id:2,collision:false,look:"bitmask",line:1},
-		{name:"walls",id:3,collision:false,look:"bitmask",line:2},
-
-	],
-
-
-	maps:[
-		{
-			name:"map_1",
-			tileset:"demo_tileset",
-			// ground
-			layers: [
-				// ground layer
-				{
-					name: "ground",
-					offset: {
-						x: 0,
-						y: 0
-					},
-					geometry: [
-						[2, 2, 2],
-						[2, 2, 2],
-						[2, 2, 2],
-						[2, 2, 2],
-						[0, 0, 0],
-					],
-				},
-				{
-					name: "walls",
-					offset: {
-						x: 0,
-						y: -4
-					},
-					geometry: [
-						[0, 3, 0],
-						[1, 3, 0],
-						[0, 3, 3],
-						[0, 0, 0],
-					],
-				},
-			],
-		},
-	],
 };
