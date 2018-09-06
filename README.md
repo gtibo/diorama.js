@@ -30,7 +30,7 @@ the addScene function link the scene with the world aka "game"
 
 ```javascript
 let game = new Diorama(parameters);
-    game.addScene(basic_scene);
+    game.addScene(demo);
 ```
 
 By default diorama start with the first added scene, but you can specify in the parameters object by which scene you want your project to start
