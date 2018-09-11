@@ -37,5 +37,4 @@ let parameters = {
 			size: {x: 4,y: 6}
 		},
 	],
-
 };

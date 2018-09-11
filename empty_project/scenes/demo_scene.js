@@ -11,8 +11,6 @@ demo.init = function() {
 demo.render = function() {
   this.character.sprite.animate("run");
   this.character.display();
-  this.world.setFont("origami");
-  this.world.write("Welcome",this.world.W/2,10,"center");
   this.world.setFont("nano");
   this.world.write("everything's ready !",this.world.W/2,50,"center");
 };
