@@ -5,8 +5,8 @@ Diorama.js is a small Html5 2D game engine, based on canvas with no dependency.
 
 ## installation
 
-Download this repository, and de-zip it. It contain an Empty project with a single scene and basic assets.
-To see the result you have to open the Index.html file in a web browser. Then you will only need to refresh your page after any change in the code to see them applied in your game.
+[Download this repository](https://github.com/gtibo/diorama/archive/master.zip), and de-zip it. It contain an **Empty project folder** with a single scene and basic assets.
+Launch the project by opening the index.html file in a web browser. Then you will only need to refresh your page after any change in the code to see them applied in your game.
 
 ## usage
 You can use any code editor you want to edit a project.
