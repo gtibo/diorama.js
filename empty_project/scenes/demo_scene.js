@@ -11,6 +11,7 @@ demo.init = function() {
 demo.render = function() {
   this.character.sprite.animate("run");
   this.character.display();
+  this.world.drawBox("box",16,30,94,20);
   this.world.setFont("nano");
-  this.world.write("everything's ready !",this.world.W/2,50,"center");
+  this.world.write("Evertyhing's running !",this.world.W/2,38,"center");
 };
