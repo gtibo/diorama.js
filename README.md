@@ -24,15 +24,14 @@ demo.render = function() {
 };
 ```
 don't forget to add your scenes to your game object
-the addScene function link the scene with the world aka "game"
+the addScene function links the **scene** with the world
 ```javascript
-let game = new Diorama(parameters);
+let game = new Diorama(manifest);
     game.addScene(demo);
 ```
-By default diorama start with the first added scene, but you can specify in the parameters object by which scene you want your project to start
+By default diorama starts with the first added scene, but you can specify in the manifest by which scene you want your project to start
 ```javascript
-let parameters = {
-	start_screen: "demo",
-  };
+let manifest = createManifest();
+    manifest.set.start_screen("menu");
 ```
 Diorama is under the [MIT license](https://opensource.org/licenses/MIT)
