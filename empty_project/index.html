@@ -5,14 +5,7 @@
     <link rel="stylesheet" href="css/master.css">
   </head>
   <body>
-    <script src="../lib/manifest.js"></script>
-    <script src="../lib/box.js"></script>
-    <script src="../lib/utility.js"></script>
-    <script src="../lib/scene.js"></script>
-    <script src="../lib/vector.js"></script>
-    <script src="../lib/entity.js"></script>
-    <script src="../lib/camera.js"></script>
-    <script src="../lib/diorama.js"></script>
+    <script src="lib/diorama.es2015.min.js"></script>
     <!-- Scenes -->
     <script src="scenes/demo_scene.js"></script>
     <script type="text/javascript">      
@@ -24,7 +17,6 @@
     m.set.size(128, 128);
     // Add assets to be loaded
     m.add.image("bonhomme", "assets/sprites/bonhomme.png");
-    m.add.image("demo_tileset", "assets/tileset/demo_tileset.png");
     m.add.image("box_texture", "assets/ui/box.png");
     m.add.image("nano_font", "assets/fonts/nano.png");
     // Add custom bitmap fonts and dialog boxes
@@ -37,7 +29,6 @@
     game.ready();
     // everything start being loaded now !
     // the ready function must be called after the inclusion of every scenes
-
     </script>
   </body>
 </html>
