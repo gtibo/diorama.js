@@ -6,6 +6,7 @@
   </head>
   <body>
     <script src="../lib/manifest.js"></script>
+    <script src="../lib/box.js"></script>
     <script src="../lib/utility.js"></script>
     <script src="../lib/scene.js"></script>
     <script src="../lib/vector.js"></script>
@@ -14,22 +15,21 @@
     <script src="../lib/diorama.js"></script>
     <!-- Scenes -->
     <script src="scenes/demo_scene.js"></script>
-    <script type="text/javascript">    
+    <script type="text/javascript">      
     let m = createManifest();
     // A manifest will contain every informations on the projects
     m.set.start_screen("menu");
-    m.set.scale(2);
+    m.set.scale(4);
     m.set.background("white");
     m.set.size(128, 128);
     // Add assets to be loaded
     m.add.image("bonhomme", "assets/sprites/bonhomme.png");
+    m.add.image("demo_tileset", "assets/tileset/demo_tileset.png");
     m.add.image("box_texture", "assets/ui/box.png");
-    m.add.image("origami_font", "assets/fonts/origami.png");
     m.add.image("nano_font", "assets/fonts/nano.png");
     // Add custom bitmap fonts and dialog boxes
-    m.add.font("nano", "nano_font", 4, 6);
-    m.add.font("origami", "origami_font", 4, 6);
-    m.add.box("box", "box_texture", 8);
+    m.create.font("nano", "nano_font", 4, 6);
+    m.create.box("box", "box_texture", 8);
     let game = new Diorama(m);
     // Add the different scenes here
     // the addScene function link the scene with the world (game)
@@ -37,7 +37,7 @@
     game.ready();
     // everything start being loaded now !
     // the ready function must be called after the inclusion of every scenes
-    game.fullScreen();
+
     </script>
   </body>
 </html>
