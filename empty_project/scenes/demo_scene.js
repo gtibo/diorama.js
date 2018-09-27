@@ -9,9 +9,21 @@ demo.init = function() {
   this.character.sprite.addAnimation("run",[16,17,18,19,20,21,22,23]);
 };
 demo.render = function() {
+  // Update character
+  if(this.world.keys.arrowright){
+    this.character.body.applyForce(new Vector(2,0));
+  }else if(this.world.keys.arrowleft){
+    this.character.body.applyForce(new Vector(-2,0));
+  }
+  if(this.world.keys.arrowup){
+    this.character.body.applyForce(new Vector(0,-2));
+  }else if(this.world.keys.arrowdown){
+    this.character.body.applyForce(new Vector(0,2));
+  }
+  this.character.body.integration();
   this.character.sprite.animate("run");
   this.character.display();
   this.world.drawBox("box",16,30,94,20);
   this.world.setFont("nano");
-  this.world.write("Evertyhing's running !",this.world.W/2,38,"center");
+  this.world.write("Evertyhing's ready !",this.world.W/2,38,"center");
 };
