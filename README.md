@@ -1,7 +1,8 @@
-# diorama
+![alt text](preview.png "preview")
+
 Diorama.js is a small Html5 2D game engine, based on canvas with no dependency.
 
-[You can find demos and examples here](https://codepen.io/collection/AevkWM/#)
+[Demos and examples on codepen](https://codepen.io/collection/AevkWM/#)
 
 ## installation
 
