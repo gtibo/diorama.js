@@ -11,8 +11,8 @@ demo.init = function() {
   this.character.sprite.addAnimation("run_left",[8,9,10,11,12,13,14,15]);
   this.character.sprite.addAnimation("run_right",[16,17,18,19,20,21,22,23]);
   this.direction = "left";
-  this.character.body.set.size(10,4);
-  this.character.body.set.drag(0.94);
+  this.character.body.setSize(10,4);
+  this.character.body.setDrag(0.94);
   this.character.sprite.setOffset(0.5,-1.4);
   this.world.initMap("map_demo");
   this.camera.setTarget(this.character);
