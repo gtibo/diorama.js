@@ -43,11 +43,11 @@ demo.render = function() {
     this.character.sprite.current_frame = 0;
   }
   this.world.drawMap();
+  this.character.display();
   let ui_offset = {
     x:this.camera.body.position.x,
     y:this.camera.body.position.y
   };
-  this.character.display();
   this.world.drawBox("box",ui_offset.x+16,ui_offset.y+this.world.H-30,94,20);
   this.world.setFont("nano");
   this.world.write("Evertyhing's ready !",ui_offset.x+this.world.W/2,ui_offset.y+this.world.H-22,"center");
