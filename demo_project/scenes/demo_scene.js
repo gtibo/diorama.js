@@ -16,22 +16,21 @@ demo.init = function() {
   this.character.sprite.setOffset(0.5,-1.4);
   this.world.initMap("map_demo");
   this.camera.setTarget(this.character);
-  this.camera.boundless = false;
   this.camera.setBounds(160,160);
 };
 demo.render = function() {
   // Update character
   if(this.world.keys.arrowright){
     this.direction = "right";
-    this.character.body.applyForce(new Vector(6,0));
+    this.character.body.addForce(new Vector(6,0));
   }else if(this.world.keys.arrowleft){
     this.direction = "left";
-    this.character.body.applyForce(new Vector(-6,0));
+    this.character.body.addForce(new Vector(-6,0));
   }
   if(this.world.keys.arrowup){
-    this.character.body.applyForce(new Vector(0,-6));
+    this.character.body.addForce(new Vector(0,-6));
   }else if(this.world.keys.arrowdown){
-    this.character.body.applyForce(new Vector(0,6));
+    this.character.body.addForce(new Vector(0,6));
   }
   this.character.body.mapCollision("walls");
   this.character.body.velocity.limit(60);
