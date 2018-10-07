@@ -12,10 +12,10 @@ class Entity {
 		if (this.sprite === undefined || this.world.debug === true) {
 			this.ctx.lineWidth = 1;
 			this.ctx.strokeStyle = "#000";
-			this.ctx.strokeRect(this.body.position.x-0.5, this.body.position.y-0.5, this.body.size.x, this.body.size.y);	
-		} 
-		if(this.sprite !== undefined) {
-			this.sprite.display(this.body.position.x,this.body.position.y);
+			this.ctx.strokeRect(this.body.position.x - 0.5, this.body.position.y - 0.5, this.body.size.x, this.body.size.y);
+		}
+		if (this.sprite !== undefined) {
+			this.sprite.display(this.body.position.x, this.body.position.y);
 		}
 	}
 }
@@ -43,10 +43,10 @@ class Sprite {
 			x: 0,
 			y: 0,
 		}
-		this.setOffset(0.5,0.5);
-		this.addAnimation("none",[0]);
+		this.setOffset(0.5, 0.5);
+		this.addAnimation("none", [0]);
 	}
-	setOffset(x,y){
+	setOffset(x, y) {
 		this.offset.x = x;
 		this.offset.y = y;
 	}
@@ -54,7 +54,7 @@ class Sprite {
 		this.animations[name] = frames;
 		this.current_animation = name;
 	}
-	setState(animation_name){
+	setState(animation_name) {
 		this.current_animation = animation_name;
 	}
 	animate(animation_name) {
@@ -70,10 +70,9 @@ class Sprite {
 			}
 		}
 	}
-	display(x,y) {
-		this.ctx.drawImage(
-			this.image, Math.floor(this.animations[this.current_animation][this.current_frame] % this.width) * this.size.x, Math.floor(this.animations[this.current_animation]
-				[this.current_frame] / this.width) * this.size.y, this.size.x, this.size.y, x - (this.size.x / 2) + (this.offset.x*this.entity.body.size.x), y - (this.size.y / 2) + (this.offset.y*this.entity.body.size.y), this.size.x, this.size.y);
+	display(x, y) {
+		this.ctx.drawImage(this.image, Math.floor(this.animations[this.current_animation][this.current_frame] % this.width) * this.size.x, Math.floor(this.animations[this.current_animation]
+			[this.current_frame] / this.width) * this.size.y, this.size.x, this.size.y, x - (this.size.x / 2) + (this.offset.x * this.entity.body.size.x), y - (this.size.y / 2) + (this.offset.y * this.entity.body.size.y), this.size.x, this.size.y);
 	}
 }
 class Body {
@@ -92,8 +91,8 @@ class Body {
 			y: this.world.tile_size
 		};
 		this.half = {
-			x: this.size.x/2,
-			y: this.size.y/2
+			x: this.size.x / 2,
+			y: this.size.y / 2
 		};
 		this.collision = {
 			left: false,
@@ -102,24 +101,24 @@ class Body {
 			bottom: false,
 		}
 	}
-	setSize(x,y){
+	setSize(x, y) {
 		this.size.x = x;
 		this.size.y = y;
 		this.half = {
-			x: this.size.x/2,
-			y: this.size.y/2
-		};		
+			x: this.size.x / 2,
+			y: this.size.y / 2
+		};
 	}
-	setBounciness(value){
+	setBounciness(value) {
 		this.bounciness = value;
 	}
-	setDrag(value){
+	setDrag(value) {
 		this.drag = value;
 	}
 	updateVelocity() {
 		let drag = this.velocity.copy();
 		drag.mult(-1);
-		drag.setMag(this.velocity.mag()*this.drag);
+		drag.setMag(this.velocity.mag() * this.drag);
 		this.addForce(drag);
 		this.velocity.add(this.acceleration);
 		this.stepped_velocity = this.velocity.copy();
@@ -146,27 +145,22 @@ class Body {
 		}
 		let tile_data = this.world.getTileProperties(this.world.getTile(layer_id, tile_pos.x, tile_pos.y));
 		if (tile_data !== undefined && tile_data.collision === true) {
-			let neighbors = [
-				{
-					x: tile_pos.x - 1,
-					y: tile_pos.y
-				},
-				{
-					x: tile_pos.x + 1,
-					y: tile_pos.y
-				},
-				{
-					x: tile_pos.x,
-					y: tile_pos.y - 1
-				},
-				{
-					x: tile_pos.x,
-					y: tile_pos.y + 1
-				}
-		].map(tile => {
+			let neighbors = [{
+				x: tile_pos.x - 1,
+				y: tile_pos.y
+			}, {
+				x: tile_pos.x + 1,
+				y: tile_pos.y
+			}, {
+				x: tile_pos.x,
+				y: tile_pos.y - 1
+			}, {
+				x: tile_pos.x,
+				y: tile_pos.y + 1
+			}].map(tile => {
 				let n_data = this.world.getTileProperties(this.world.getTile(layer_id, tile.x, tile.y));
 				if (n_data !== undefined && n_data.collision === true) {
-							return true;
+					return true;
 				} else {
 					return false;
 				}
@@ -178,8 +172,8 @@ class Body {
 		}
 		return false;
 	};
-	mapCollision(layer){
-		let layer_id = this.world.checkLayerId(layer);		
+	mapCollision(layer) {
+		let layer_id = this.world.checkLayerId(layer);
 		let tX = this.position.x + this.stepped_velocity.x,
 			tY = this.position.y + this.stepped_velocity.y;
 		let top_left = this.getTileCollisionData(layer_id, tX, tY);
@@ -202,7 +196,7 @@ class Body {
 		if (bottom_right) {
 			this.AABB(bottom_right)
 		}
-		}
+	}
 	AABB(tile) {
 		tile.position.x *= this.world.tile_size;
 		tile.position.y *= this.world.tile_size;
@@ -226,7 +220,7 @@ class Body {
 					this.velocity.x *= -this.bounciness;
 					this.collision.left = true;
 				} else {
-				if (tile.neighbors[0]) return false;
+					if (tile.neighbors[0]) return false;
 					this.position.x += gapX;
 					this.velocity.x *= -this.bounciness;
 					this.collision.right = true;
@@ -237,7 +231,7 @@ class Body {
 					if (tile.neighbors[3]) return false;
 					this.position.y -= gapY;
 					this.velocity.y *= -this.bounciness;
-					this.collision.top = true;					
+					this.collision.top = true;
 				} else {
 					if (tile.neighbors[2]) return false;
 					this.position.y += gapY;
