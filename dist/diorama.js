@@ -51,14 +51,14 @@ function Manifest() {
 				path: path
 			});
 		},
-		map: (name,path) =>{
+		tilemap: (name,path) =>{
 			this.assets.push({
 				type:"map",
 				name:name,
 				path:path,
 			});
 		},
-		scene:(scene)=>{			
+		scene:(scene)=>{
 			this.scenes.push(scene);
 		},
 	};
@@ -86,6 +86,7 @@ function Manifest() {
 function createManifest() {
 	return new Manifest();
 }
+
 class Box{
 	constructor(world,box_data){
 		this.world = world;
@@ -531,6 +532,7 @@ class Body {
 		}
 	}
 }
+
 class Camera extends Entity{
 	constructor(scene,x,y){
 		super(scene,x,y);
