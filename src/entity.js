@@ -19,26 +19,21 @@ class Entity {
 		}
 	}
 }
-// class for animated sprites !
 class Sprite {
 	constructor(entity, sprite_data) {
 		this.entity = entity;
 		this.world = this.entity.world;
 		this.tile_size = this.world.tile_size;
 		this.ctx = this.world.ctx;
-		// image data
 		this.image = this.world.assets.image[sprite_data.image].image;
-		// sprite
 		this.size = sprite_data.size;
 		this.current_frame = 0;
 		this.animations = {};
 		this.current_animation = undefined;
 		this.width = this.image.width / this.size.x;
 		this.height = this.image.height / this.size.y;
-		// timer
 		this.tick = 0;
 		this.speed = 0.2;
-		// offset
 		this.offset = {
 			x: 0,
 			y: 0,
@@ -125,7 +120,6 @@ class Body {
 		this.stepped_velocity.mult(this.step);
 		this.next_position = this.position.copy();
 		this.next_position.add(this.stepped_velocity);
-		// reset acceleration
 		this.acceleration.mult(0);
 	}
 	updatePosition() {
@@ -201,8 +195,8 @@ class Body {
 		tile.position.x *= this.world.tile_size;
 		tile.position.y *= this.world.tile_size;
 		let tile_half = (this.world.tile_size / 2);
-		let dist_x = this.position.x - tile.position.x,
-        dist_y = this.position.y - tile.position.y;
+		let dist_x = (this.position.x + this.half.x) - (tile.position.x + tile_half),
+        dist_y = (this.position.y + this.half.y) - (tile.position.y + tile_half);
     let gap_x = this.half.x + tile_half - Math.abs(dist_x),
         gap_y = this.half.y + tile_half - Math.abs(dist_y);
     if (gap_x > 0 && gap_y > 0) {

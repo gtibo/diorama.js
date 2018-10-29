@@ -1,6 +1,3 @@
-// ----------
-// Utility
-// ----------
 let Util = {};
 Util.timeStamp = function() {
 	return window.performance.now();

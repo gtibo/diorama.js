@@ -10,7 +10,7 @@ class Box{
 	display(x,y,width,height,bg){
 		width = Math.max(this.resolution*2,width);
 		height = Math.max(this.resolution*2,height);
-		// background		
+		// background
 		this.ctx.fillStyle = bg || this.world.background_color;
 		this.ctx.fillRect(x+1,y+1,width-2,height-2);
 		// corners

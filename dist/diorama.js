@@ -99,7 +99,7 @@ class Box{
 	display(x,y,width,height,bg){
 		width = Math.max(this.resolution*2,width);
 		height = Math.max(this.resolution*2,height);
-		// background		
+		// background
 		this.ctx.fillStyle = bg || this.world.background_color;
 		this.ctx.fillRect(x+1,y+1,width-2,height-2);
 		// corners
@@ -144,9 +144,7 @@ class Box{
 
 	}
 }
-// ----------
-// Utility
-// ----------
+
 let Util = {};
 Util.timeStamp = function() {
 	return window.performance.now();
@@ -190,6 +188,7 @@ Tween.easeInOutExpo = function (t, b, c, d) {
 	t--;
 	return c/2 * ( -Math.pow( 2, -10 * t) + 2 ) + b;
 };
+
 class Scene {
 	constructor(name) {
 		this.name = name;
@@ -199,11 +198,10 @@ class Scene {
 	giveWorld(world){
 		this.world = world;
 		this.ctx = world.ctx;
-		// add default camera
 		this.camera = new Camera(this,0,0);
 	}
 	keyDown(event) {
-		
+
 	}
 	keyUp(event){
 
@@ -215,6 +213,7 @@ class Scene {
 
 	}
 }
+
 class Vector{
 	constructor(x,y){
 		this.x = x || 0;
@@ -309,26 +308,21 @@ class Entity {
 		}
 	}
 }
-// class for animated sprites !
 class Sprite {
 	constructor(entity, sprite_data) {
 		this.entity = entity;
 		this.world = this.entity.world;
 		this.tile_size = this.world.tile_size;
 		this.ctx = this.world.ctx;
-		// image data
 		this.image = this.world.assets.image[sprite_data.image].image;
-		// sprite
 		this.size = sprite_data.size;
 		this.current_frame = 0;
 		this.animations = {};
 		this.current_animation = undefined;
 		this.width = this.image.width / this.size.x;
 		this.height = this.image.height / this.size.y;
-		// timer
 		this.tick = 0;
 		this.speed = 0.2;
-		// offset
 		this.offset = {
 			x: 0,
 			y: 0,
@@ -415,7 +409,6 @@ class Body {
 		this.stepped_velocity.mult(this.step);
 		this.next_position = this.position.copy();
 		this.next_position.add(this.stepped_velocity);
-		// reset acceleration
 		this.acceleration.mult(0);
 	}
 	updatePosition() {
@@ -491,8 +484,8 @@ class Body {
 		tile.position.x *= this.world.tile_size;
 		tile.position.y *= this.world.tile_size;
 		let tile_half = (this.world.tile_size / 2);
-		let dist_x = this.position.x - tile.position.x,
-        dist_y = this.position.y - tile.position.y;
+		let dist_x = (this.position.x + this.half.x) - (tile.position.x + tile_half),
+        dist_y = (this.position.y + this.half.y) - (tile.position.y + tile_half);
     let gap_x = this.half.x + tile_half - Math.abs(dist_x),
         gap_y = this.half.y + tile_half - Math.abs(dist_y);
     if (gap_x > 0 && gap_y > 0) {
@@ -561,15 +554,13 @@ class Camera extends Entity{
 	update(){
 		this.body.position.x = this.target.position.x + this.target.size.x/2 - this.world.W/2;
 		this.body.position.y = this.target.position.y + this.target.size.x/2 - this.world.H/2;
-		// bound
 		this.checkBounds();
-		
 		this.world.ctx.translate(this.world.W/2,this.world.H/2);
 		this.world.ctx.rotate(this.angle);
 		this.world.ctx.translate(-this.body.position.x- this.world.W/2 ,-this.body.position.y - this.world.H/2);
-
 	}
 }
+
 class Diorama {
 	constructor(manifest) {
 		if(!manifest){
@@ -637,7 +628,6 @@ class Diorama {
 		this.applyScale();
 	}
 	loader() {
-		// increment loader
 		this.clear("#222");
 		this.counter += 1;
 		let padding = 20;
@@ -925,7 +915,7 @@ class Diorama {
 		let layer_id = layer;
 		if (typeof layer == "string") {
 			this.terrain.layers.forEach((l,index) => {
-				if(l.name === layer){					
+				if(l.name === layer){
 					return layer_id = index;
 				}
 			});
@@ -1013,7 +1003,7 @@ class Diorama {
 			}
 			let id = (p1 * 8) + (p2*4) + (p3*2 ) + p4;
 			return id;
-	  }	
+	  }
 	drawMap() {
 		this.terrain.layers.forEach(layer => {
 			let start_x = this.current_scene.camera.body.position.x,

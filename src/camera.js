@@ -34,12 +34,9 @@ class Camera extends Entity{
 	update(){
 		this.body.position.x = this.target.position.x + this.target.size.x/2 - this.world.W/2;
 		this.body.position.y = this.target.position.y + this.target.size.x/2 - this.world.H/2;
-		// bound
 		this.checkBounds();
-		
 		this.world.ctx.translate(this.world.W/2,this.world.H/2);
 		this.world.ctx.rotate(this.angle);
 		this.world.ctx.translate(-this.body.position.x- this.world.W/2 ,-this.body.position.y - this.world.H/2);
-
 	}
 }

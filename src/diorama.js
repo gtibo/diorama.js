@@ -65,7 +65,6 @@ class Diorama {
 		this.applyScale();
 	}
 	loader() {
-		// increment loader
 		this.clear("#222");
 		this.counter += 1;
 		let padding = 20;
@@ -353,7 +352,7 @@ class Diorama {
 		let layer_id = layer;
 		if (typeof layer == "string") {
 			this.terrain.layers.forEach((l,index) => {
-				if(l.name === layer){					
+				if(l.name === layer){
 					return layer_id = index;
 				}
 			});
@@ -441,7 +440,7 @@ class Diorama {
 			}
 			let id = (p1 * 8) + (p2*4) + (p3*2 ) + p4;
 			return id;
-	  }	
+	  }
 	drawMap() {
 		this.terrain.layers.forEach(layer => {
 			let start_x = this.current_scene.camera.body.position.x,
