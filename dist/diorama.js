@@ -490,46 +490,38 @@ class Body {
 	AABB(tile) {
 		tile.position.x *= this.world.tile_size;
 		tile.position.y *= this.world.tile_size;
-		// Distance from the center of a box
 		let tile_half = (this.world.tile_size / 2);
-		let distX = Math.abs((this.position.x + this.half.x) - (tile.position.x + tile_half));
-		let distY = Math.abs((this.position.y + this.half.y) - (tile.position.y + tile_half));
-		// Gap between each boxes
-		let gapX = distX - this.half.x - tile_half;
-		let gapY = distY - this.half.y - tile_half;
-		//collision on the X or Y axis
-		if (gapX < 0 || gapY < 0) {
-			// prevent equality if square
-			if (gapX === gapY) {
-				gapY = -1;
-			}
-			if (gapX < 0 && gapX > gapY) {
-				if (this.position.x > tile.position.x) {
+		let dist_x = this.position.x - tile.position.x,
+        dist_y = this.position.y - tile.position.y;
+    let gap_x = this.half.x + tile_half - Math.abs(dist_x),
+        gap_y = this.half.y + tile_half - Math.abs(dist_y);
+    if (gap_x > 0 && gap_y > 0) {
+      if (gap_x < gap_y) {
+        if (dist_x > 0) {
 					if (tile.neighbors[1]) return false;
-					this.position.x -= gapX;
-					this.velocity.x *= -this.bounciness;
-					this.collision.left = true;
-				} else {
+		      this.position.x += gap_x;
+		      this.velocity.x *= -this.bounciness;
+		      this.collision.left = true;
+        } else {
 					if (tile.neighbors[0]) return false;
-					this.position.x += gapX;
-					this.velocity.x *= -this.bounciness;
-					this.collision.right = true;
-				}
-			}
-			if (gapY < 0 && gapY > gapX) {
-				if (this.position.y > tile.position.y) {
+		      this.position.x -= gap_x;
+		      this.velocity.x *= -this.bounciness;
+		      this.collision.right = true;
+        }
+      } else {
+        if (dist_y > 0) {
 					if (tile.neighbors[3]) return false;
-					this.position.y -= gapY;
-					this.velocity.y *= -this.bounciness;
-					this.collision.top = true;
-				} else {
+		      this.position.y += gap_y;
+		      this.velocity.y *= -this.bounciness;
+		      this.collision.top = true;
+        } else {
 					if (tile.neighbors[2]) return false;
-					this.position.y += gapY;
-					this.velocity.y *= -this.bounciness;
-					this.collision.bottom = true;
-				}
-			}
-		}
+		      this.position.y -= gap_y;
+		      this.velocity.y *= -this.bounciness;
+		      this.collision.bottom = true;
+        }
+      }
+    }
 	}
 }
 
