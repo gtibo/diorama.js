@@ -563,7 +563,7 @@ class Camera extends Entity{
 
 class Diorama {
 	constructor(manifest) {
-		if(!manifest){
+		if (!manifest) {
 			throw "A manifest is needed";
 		}
 		this.parameters = manifest;
@@ -696,7 +696,7 @@ class Diorama {
 		}
 	}
 	launch() {
-		this.parameters.scenes.forEach(scene=>{
+		this.parameters.scenes.forEach(scene => {
 			this.addScene(scene);
 		});
 		this.eventSetup();
@@ -911,11 +911,11 @@ class Diorama {
 	// ---
 	// Tile map
 	// ---
-	checkLayerId(layer){
+	checkLayerId(layer) {
 		let layer_id = layer;
 		if (typeof layer == "string") {
-			this.terrain.layers.forEach((l,index) => {
-				if(l.name === layer){
+			this.terrain.layers.forEach((l, index) => {
+				if (l.name === layer) {
 					return layer_id = index;
 				}
 			});
@@ -928,7 +928,7 @@ class Diorama {
 		if (y < 0 || y > layer.height - 1) return false;
 		return layer.data[y][x];
 	}
-	getTileProperties(tile_id){
+	getTileProperties(tile_id) {
 		return this.terrain.tileset.tileproperties[tile_id];
 	}
 	findTile(searched_layer, tile_id) {
@@ -985,25 +985,27 @@ class Diorama {
 		return id;
 	}
 	marchingSquare(layer, x, y) {
-		let p1 = 0,p2 = 0,p3 = 0,p4 = 0;
-
-			if (y + 1 < layer.height && x + 1 < layer.width) {
-				if(layer.data[y][x] === 1){
-					p1 = 1;
-				}
-				if(layer.data[y][x + 1] === 1){
-					p2 = 1;
-				}
-				if(layer.data[y + 1][x + 1] === 1){
-					p3 = 1;
-				}
-				if(layer.data[y + 1][x] === 1){
-					p4 = 1;
-				}
+		let p1 = 0,
+			p2 = 0,
+			p3 = 0,
+			p4 = 0;
+		if (y + 1 < layer.height && x + 1 < layer.width) {
+			if (layer.data[y][x] === 1) {
+				p1 = 1;
 			}
-			let id = (p1 * 8) + (p2*4) + (p3*2 ) + p4;
-			return id;
-	  }
+			if (layer.data[y][x + 1] === 1) {
+				p2 = 1;
+			}
+			if (layer.data[y + 1][x + 1] === 1) {
+				p3 = 1;
+			}
+			if (layer.data[y + 1][x] === 1) {
+				p4 = 1;
+			}
+		}
+		let id = (p1 * 8) + (p2 * 4) + (p3 * 2) + p4;
+		return id;
+	}
 	drawMap() {
 		this.terrain.layers.forEach(layer => {
 			let start_x = this.current_scene.camera.body.position.x,
@@ -1017,20 +1019,21 @@ class Diorama {
 				let id = layer.data[y][x];
 				let positionX = (x * this.tile_size),
 					positionY = (y * this.tile_size);
-				let sourceX = Math.floor(id % this.terrain.tileset.imagewidth) * this.tile_size,
-					sourceY = Math.floor(id / this.terrain.tileset.imagewidth) * this.tile_size;
+				let tile_width = Math.floor(this.terrain.tileset.imagewidth / this.tile_size);
+				let sourceX = id % tile_width * this.tile_size,
+					sourceY = Math.floor(id / tile_width) * this.tile_size;
 				if (this.terrain.tileset.tileproperties[id] && this.terrain.tileset.tileproperties[id].look === "bitmask") {
 					let new_id = this.bitMask(layer, x, y);
 					sourceX = Math.floor(new_id) * this.tile_size;
 					sourceY = this.terrain.tileset.tileproperties[id].line * this.tile_size;
-				}else if (layer.properties && layer.properties.type === "square") {
+				} else if (layer.properties && layer.properties.type === "square") {
 					let new_id = this.marchingSquare(layer, x, y);
 					if (id !== 1 && new_id === 15) continue;
-					positionX += this.tile_size/2;
-					positionY += this.tile_size/2;
+					positionX += this.tile_size / 2;
+					positionY += this.tile_size / 2;
 					sourceX = new_id * 16;
 					sourceY = layer.properties.line * this.tile_size;
-				}else{
+				} else {
 					// Prevent invisible tiles to be drawn
 					if (id < 0) continue;
 				}
