@@ -1,5 +1,5 @@
 function Manifest() {
-	this.start_scene = undefined;
+	this.start_screen = undefined;
 	this.size = {
 		x: 128,
 		y: 128
@@ -18,7 +18,7 @@ function Manifest() {
 			this.dom_element = document.getElementById(dom_element_id);
 		},
 		startScreen: (value) => {
-			this.start_scene = value;
+			this.start_screen = value;
 		},
 		background: (value) => {
 			this.background = value;

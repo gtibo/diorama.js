@@ -366,13 +366,13 @@ class Diorama {
 		return layer.data[y][x];
 	}
 	getTileProperties(tile_id) {
-		return this.terrain.tileset.tileproperties[tile_id];
+		return this.terrain.tileproperties[tile_id];
 	}
 	findTile(searched_layer, tile_id) {
 		let layer = this.terrain.layers[this.checkLayerId(searched_layer)];
 		let result = [];
-		for (let y = 0; y < layer.width; y++) {
-			for (let x = 0; x < layer.height; x++) {
+		for (let y = 0; y < layer.height; y++) {
+			for (let x = 0; x < layer.width; x++) {
 				let id = layer.data[y][x];
 				if (id === tile_id) {
 					result.push({
@@ -392,8 +392,27 @@ class Diorama {
 			});
 			layer.data = Util.array2D(tab, layer.width);
 		});
-		this.terrain.tileset = this.terrain.tilesets[0];
-		this.terrain.tileset.image = this.assets.image[this.terrain.tilesets[0].name].image;
+		this.terrain.tileproperties = {};
+		this.terrain.tileanimations = {};
+		this.terrain.tilesets.forEach((tileset, tileset_index) => {
+			tileset.tiles.forEach(tile => {
+				let tile_id = (tileset.firstgid - 1) + tile.id;
+				if (tile.properties) {
+					let t_p = this.terrain.tileproperties[tile_id] = {};
+					tile.properties.forEach(propertie => {
+						t_p[propertie.name] = propertie.value;
+					})
+				}
+				if (tile.animation) {
+					this.terrain.tileanimations[tile_id] = {
+						current: 0,
+						last: tile.animation.length - 1,
+						animation: tile.animation,
+						tiles: []
+					};
+				}
+			});
+		});
 		this.terrain.layers.forEach(layer => {
 			this.terrainCache(layer);
 		});
@@ -405,7 +424,7 @@ class Diorama {
 		c.width = layer.width * this.tile_size;
 		c.height = layer.height * this.tile_size;
 		// Draw on cache
-		this.drawLayer(ctx, layer);
+		this.backLayer(ctx, layer);
 	}
 	bitMask(layer, x, y) {
 		let id = layer.data[y][x];
@@ -444,25 +463,65 @@ class Diorama {
 		return id;
 	}
 	drawMap() {
-		this.terrain.layers.forEach(layer => {
-			let start_x = this.current_scene.camera.body.position.x,
-				start_y = this.current_scene.camera.body.position.y;
-			this.ctx.drawImage(layer.cache.c, start_x, start_y, this.W, this.H, start_x, start_y, this.W, this.H);
+		this.terrain.layers.forEach((layer, index) => {
+			this.drawLayer(index);
 		});
 	}
-	drawLayer(ctx, layer) {
+	drawLayer(layer_id) {
+		let layer = this.terrain.layers[layer_id];
+		let start_x = this.current_scene.camera.body.position.x,
+			start_y = this.current_scene.camera.body.position.y;
+		this.ctx.drawImage(layer.cache.c, start_x, start_y, this.W, this.H, start_x, start_y, this.W, this.H);
+		// draw animated tiles
+		layer.animTilesList.forEach(animation_id => {
+			let anim = this.terrain.tileanimations[animation_id];
+			anim.current += 0.1;
+			if (anim.current > anim.last) {
+				anim.current = 0;
+			}
+			anim.tiles.forEach(tile => {
+				let sourceX = anim.animation[Math.floor(anim.current)].tileid % tile.tile_width * this.tile_size,
+					sourceY = Math.floor(tile.relative_id / tile.tile_width) * this.tile_size;
+				this.ctx.drawImage(tile.tileset_image, sourceX, sourceY, this.tile_size, this.tile_size, tile.x, tile.y, this.tile_size, this.tile_size);
+			});
+		});
+	}
+	backLayer(ctx, layer) {
+		layer.animTilesList = [];
+		let list = {};
 		for (let y = 0; y < layer.height; y++) {
 			for (let x = 0; x < layer.width; x++) {
 				let id = layer.data[y][x];
+				let tileset = this.terrain.tilesets.find(function(tileset) {
+					let min = tileset.firstgid - 1,
+						max = min + tileset.tilecount - 1;
+					return id + 1 >= min && id <= max;
+				});
+				let relative_id = id - (tileset.firstgid - 1);
+				let tileset_image = game.assets.image[tileset.name].image;
 				let positionX = (x * this.tile_size),
 					positionY = (y * this.tile_size);
-				let tile_width = Math.floor(this.terrain.tileset.imagewidth / this.tile_size);
-				let sourceX = id % tile_width * this.tile_size,
-					sourceY = Math.floor(id / tile_width) * this.tile_size;
-				if (this.terrain.tileset.tileproperties[id] && this.terrain.tileset.tileproperties[id].look === "bitmask") {
+				let tile_width = Math.floor(tileset.imagewidth / this.tile_size);
+				let sourceX = relative_id % tile_width * this.tile_size,
+					sourceY = Math.floor(relative_id / tile_width) * this.tile_size;
+				if (this.terrain.tileanimations[id] !== undefined) {
+					list[id] = id;
+					this.terrain.tileanimations[id].tiles.push({
+						x: x * this.tile_size,
+						y: y * this.tile_size,
+						id: id,
+						relative_id: relative_id,
+						sourceX: sourceX,
+						sourceY: sourceY,
+						tileset_image: tileset_image,
+						tile_width: tile_width,
+					});
+					continue;
+				};
+				if (this.terrain.tileproperties[id] && this.terrain.tileproperties[id].look === "bitmask") {
 					let new_id = this.bitMask(layer, x, y);
 					sourceX = Math.floor(new_id) * this.tile_size;
-					sourceY = this.terrain.tileset.tileproperties[id].line * this.tile_size;
+					sourceY = this.terrain.tileproperties[id].line * this.tile_size;
 				} else if (layer.properties && layer.properties.type === "square") {
 					let new_id = this.marchingSquare(layer, x, y);
 					if (id !== 1 && new_id === 15) continue;
@@ -472,10 +531,16 @@ class Diorama {
 					sourceY = layer.properties.line * this.tile_size;
 				} else {
 					// Prevent invisible tiles to be drawn
+					if (this.terrain.tileproperties[id] && this.terrain.tileproperties[id].visibility === false) {
+						continue;
+					}
 					if (id < 0) continue;
 				}
-				ctx.drawImage(this.terrain.tileset.image, sourceX, sourceY, this.tile_size, this.tile_size, positionX, positionY, this.tile_size, this.tile_size);
+				ctx.drawImage(tileset_image, sourceX, sourceY, this.tile_size, this.tile_size, positionX, positionY, this.tile_size, this.tile_size);
 			}
+		}
+		for (let key in list) {
+			layer.animTilesList.push(key);
 		}
 	}
 }

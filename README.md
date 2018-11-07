@@ -6,6 +6,8 @@
 
 ## Installation
 
+Tiled Version 1.2.0 compatibility
+
 [Download this repository](https://github.com/gtibo/diorama/archive/master.zip), and de-zip it. It contain an **Empty project folder** with a single scene and basic assets.
 Launch the project by opening the index.html file in a web browser. Then you will only need to refresh your page after any change in the code to see them applied in your game.
 

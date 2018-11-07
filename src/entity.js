@@ -51,9 +51,10 @@ class Sprite {
 	}
 	setState(animation_name) {
 		this.current_animation = animation_name;
+		this.current_frame = 0;
 	}
 	animate(animation_name) {
-		this.setState(animation_name);
+		this.current_animation = animation_name;
 		if (this.tick < 1) {
 			this.tick += this.speed;
 		} else {
