@@ -15,7 +15,7 @@ class Entity {
 			this.ctx.strokeRect(this.body.position.x - 0.5, this.body.position.y - 0.5, this.body.size.x, this.body.size.y);
 		}
 		if (this.sprite !== undefined) {
-			this.sprite.display(this.body.position.x, this.body.position.y);
+			this.sprite.display(Math.round(this.body.position.x), Math.round(this.body.position.y));
 		}
 	}
 }

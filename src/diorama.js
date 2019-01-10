@@ -397,7 +397,7 @@ class Diorama {
 		this.terrain.tilesets.forEach((tileset, tileset_index) => {
 			tileset.tiles.forEach(tile => {
 				let tile_id = (tileset.firstgid - 1) + tile.id;
-				if (tile.properties) {
+				if (tile.properties !== undefined) {
 					let t_p = this.terrain.tileproperties[tile_id] = {};
 					tile.properties.forEach(propertie => {
 						t_p[propertie.name] = propertie.value;

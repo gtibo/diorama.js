@@ -4,6 +4,7 @@ function Manifest() {
 		x: 128,
 		y: 128
 	};
+	this.tile_size = 16;
 	this.background = "white";
 	this.scale = 1;
 	this.frame_rate = 60;
@@ -34,6 +35,9 @@ function Manifest() {
 		},
 		frameRate: (value) => {
 			this.frame_rate = value;
+		},
+		tile_size: (value) => {
+			this.tile_size = value;
 		},
 	};
 	this.add = {

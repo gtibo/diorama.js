@@ -4,6 +4,7 @@ function Manifest() {
 		x: 128,
 		y: 128
 	};
+	this.tile_size = 16;
 	this.background = "white";
 	this.scale = 1;
 	this.frame_rate = 60;
@@ -34,6 +35,9 @@ function Manifest() {
 		},
 		frameRate: (value) => {
 			this.frame_rate = value;
+		},
+		tile_size: (value) => {
+			this.tile_size = value;
 		},
 	};
 	this.add = {
@@ -304,7 +308,7 @@ class Entity {
 			this.ctx.strokeRect(this.body.position.x - 0.5, this.body.position.y - 0.5, this.body.size.x, this.body.size.y);
 		}
 		if (this.sprite !== undefined) {
-			this.sprite.display(this.body.position.x, this.body.position.y);
+			this.sprite.display(Math.round(this.body.position.x), Math.round(this.body.position.y));
 		}
 	}
 }
@@ -961,7 +965,7 @@ class Diorama {
 		this.terrain.tilesets.forEach((tileset, tileset_index) => {
 			tileset.tiles.forEach(tile => {
 				let tile_id = (tileset.firstgid - 1) + tile.id;
-				if (tile.properties) {
+				if (tile.properties !== undefined) {
 					let t_p = this.terrain.tileproperties[tile_id] = {};
 					tile.properties.forEach(propertie => {
 						t_p[propertie.name] = propertie.value;

@@ -1,0 +1,35 @@
+{
+  "name": "diorama",
+  "version": "1.0.0",
+  "description": "Html5 game engine",
+  "main": "diorama.js",
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "Babel": "^0.0.1",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^3.1.0",
+    "gulp-uglify": "^3.0.1",
+    "gulp-watch": "^5.0.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtibo/diorama.js.git"
+  },
+  "author": "thibaud goiffon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gtibo/diorama.js/issues"
+  },
+  "homepage": "https://github.com/gtibo/diorama.js#readme"
+}
