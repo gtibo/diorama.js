@@ -1,7 +1,5 @@
 ## Diorama.js
 
-### [References](https://gtibo.github.io/doc_dio/references)
-
 ### [Demos and examples on codepen](https://codepen.io/collection/AevkWM/#)
 
 ## Installation
